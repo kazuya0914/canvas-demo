@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas画板</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    let canvas = document.getElementById("canvas");       /*通过ID定位canvas*/
+    canvas.width = document.documentElement.clientWidth
+    canvas.height = document.documentElement.clientHeight     /*canvas的宽高为整个文档的宽高*/
+    let ctx = canvas.getContext("2d");
+    ctx.fillStyle = "black"
+    ctx.strokeStyle = 'none'
+    ctx.lineWidth = 10;
+    ctx.lineCap = "round"       /*线段末端以圆形结束*/
+    let lastPoint     /*声明一个变量来记录上一个节点*/
+    let painting = false/*声明一个painting变量来控制是否绘画，默认不画*/
+
+    // 画线
+    function drawLine(x1, y1, x2, y2) {          /*声明一个画线函数，接受2个x,y坐标作为起点和终点*/
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);                       /*从x1,y1到x2,y2连成一条直线*/
+      ctx.stroke();
+    }
+
+    let isTouchDevice = 'ontouchstart' in document.documentElement;   /*判断是否为手机*/
+    if (isTouchDevice) {                                              /*如果是手机*/
+      canvas.ontouchstart = (b) => {
+        let x = b.touches[0].clientX
+        let y = b.touches[0].clientY
+        lastPoint = [x, y]                                            /*第一根手指触碰屏幕的x,y坐标在lastPoint中记录*/
+      }
+      canvas.ontouchmove = (b) => {
+        let x = b.touches[0].clientX
+        let y = b.touches[0].clientY
+        drawLine(lastPoint[0], lastPoint[1], x, y)        /*从触碰点到结束点的两个坐标之间画线*/
+        lastPoint = [x, y]                                /*将结束点的坐标传给lastPoint*/
+      }
+    } else {/*不是手机则执行*/
+      canvas.onmousedown = (a) => {                       /*按下鼠标*/
+        painting = true                                   /*允许canvas绘画*/
+        lastPoint = [a.clientX, a.clientY]                /*记录按下鼠标的x,y坐标到lastPoint中*/
+      }
+      canvas.onmousemove = (a) => {                                               /*移动鼠标*/
+        if (painting === true) {                                                  /*如果canvas允许绘画*/
+          drawLine(lastPoint[0], lastPoint[1], a.clientX, a.clientY)              /*从按下鼠标到鼠标最后移动到的两个坐标之间画线*/
+          lastPoint = [a.clientX, a.clientY]                                      /*讲鼠标最后一次移动到的坐标传给lastPoint*/
+        }
+      }
+      canvas.onmouseup = () => {              /*松开鼠标*/
+        painting = false                      /*不允许canvas绘画*/
+      }
+    }
+    // 画点
+    // if (isTouchDevice) {
+    //   canvas.ontouchmove = (b) => {
+    //     let x = b.touches[0].clientX
+    //     let y = b.touches[0].clientY
+    //     ctx.beginPath();
+    //     ctx.arc(x, y, 10, 0, 2 * Math.PI)
+    //     ctx.stroke();
+    //     ctx.fill();
+    //   }
+    // } else {
+    //   canvas.onmousedown = () => {
+    //     painting = true
+    //   }
+    //   canvas.onmousemove = (a) => {
+    //     if (painting === true) {
+    //       ctx.beginPath();
+    //       ctx.arc(a.clientX, a.clientY, 10, 0, 2 * Math.PI)
+    //       ctx.stroke();
+    //       ctx.fill();
+    //     }
+    //   }
+    //   canvas.onmouseup = () => {
+    //     painting = false
+    //   }
+    // }
+
+  </script>
+</body>
+</html>
