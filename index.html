@@ -9,7 +9,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="canvas"></canvas>
+  <div style="position:fixed;width:100%;left:0;top:0;">
+    <canvas id="canvas"></canvas>
+  </div>
+
   <script>
     let canvas = document.getElementById("canvas");       /*通过ID定位canvas*/
     canvas.width = document.documentElement.clientWidth
@@ -44,8 +47,8 @@
         lastPoint = [x, y]                                /*将结束点的坐标传给lastPoint*/
       }
     } else {/*不是手机则执行*/
-      canvas.onmousedown = (a) => {                       /*按下鼠标*/
-        painting = true                                   /*允许canvas绘画*/
+      canvas.onmousedown = (a) => {
+        painting = true
         lastPoint = [a.clientX, a.clientY]                /*记录按下鼠标的x,y坐标到lastPoint中*/
       }
       canvas.onmousemove = (a) => {                                               /*移动鼠标*/
@@ -54,8 +57,8 @@
           lastPoint = [a.clientX, a.clientY]                                      /*讲鼠标最后一次移动到的坐标传给lastPoint*/
         }
       }
-      canvas.onmouseup = () => {              /*松开鼠标*/
-        painting = false                      /*不允许canvas绘画*/
+      canvas.onmouseup = () => {
+        painting = false
       }
     }
     // 画点
