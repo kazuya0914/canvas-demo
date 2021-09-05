@@ -15,8 +15,9 @@
   <script>
     document.body.addEventListener('touchmove', function (e) {
       e.preventDefault();
-    }, {passive: false});
-    let canvas = document.getElementById("canvas");       /*通过ID定位canvas*/
+    }, {passive: false});     /*防止手机版滚动*/
+
+    let canvas = document.getElementById("canvas");
     canvas.width = document.documentElement.clientWidth
     canvas.height = document.documentElement.clientHeight     /*canvas的宽高为整个文档的宽高*/
     let ctx = canvas.getContext("2d");
@@ -35,8 +36,8 @@
       ctx.stroke();
     }
 
-    let isTouchDevice = 'ontouchstart' in document.documentElement;   /*判断是否为手机*/
-    if (isTouchDevice) {                                              /*如果是手机*/
+    let isTouchDevice = 'ontouchstart' in document.documentElement;
+    if (isTouchDevice) {
       canvas.ontouchstart = (b) => {
         let x = b.touches[0].clientX
         let y = b.touches[0].clientY
@@ -59,8 +60,8 @@
           lastPoint = [a.clientX, a.clientY]                                      /*讲鼠标最后一次移动到的坐标传给lastPoint*/
         }
       }
-      canvas.onmouseup = () => {              /*松开鼠标*/
-        painting = false                      /*不允许canvas绘画*/
+      canvas.onmouseup = () => {
+        painting = false
       }
     }
     // 画点
