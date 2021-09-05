@@ -13,6 +13,9 @@
     <canvas id="canvas"></canvas>
   </div>
   <script>
+    document.body.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+    }, {passive: false});
     let canvas = document.getElementById("canvas");       /*通过ID定位canvas*/
     canvas.width = document.documentElement.clientWidth
     canvas.height = document.documentElement.clientHeight     /*canvas的宽高为整个文档的宽高*/
