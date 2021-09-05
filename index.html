@@ -10,13 +10,11 @@
 </head>
 <body>
   <div style="position:fixed;width:100%;left:0;top:0;">
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
   </div>
 
   <script>
     let canvas = document.getElementById("canvas");       /*通过ID定位canvas*/
-    canvas.width = document.documentElement.clientWidth
-    canvas.height = document.documentElement.clientHeight     /*canvas的宽高为整个文档的宽高*/
     let ctx = canvas.getContext("2d");
     ctx.fillStyle = "black"
     ctx.strokeStyle = 'none'
