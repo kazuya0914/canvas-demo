@@ -44,8 +44,8 @@
         lastPoint = [x, y]                                /*将结束点的坐标传给lastPoint*/
       }
     } else {/*不是手机则执行*/
-      canvas.onmousedown = (a) => {
-        painting = true
+      canvas.onmousedown = (a) => {                       /*按下鼠标*/
+        painting = true                                   /*允许canvas绘画*/
         lastPoint = [a.clientX, a.clientY]                /*记录按下鼠标的x,y坐标到lastPoint中*/
       }
       canvas.onmousemove = (a) => {                                               /*移动鼠标*/
@@ -54,8 +54,8 @@
           lastPoint = [a.clientX, a.clientY]                                      /*讲鼠标最后一次移动到的坐标传给lastPoint*/
         }
       }
-      canvas.onmouseup = () => {
-        painting = false
+      canvas.onmouseup = () => {              /*松开鼠标*/
+        painting = false                      /*不允许canvas绘画*/
       }
     }
     // 画点
