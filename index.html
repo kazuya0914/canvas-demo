@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="canvas"></canvas>
+  <div style="position:fixed;width:100%;left:0;top:0;">
+    <canvas id="canvas"></canvas>
+  </div>
   <script>
     let canvas = document.getElementById("canvas");       /*通过ID定位canvas*/
     canvas.width = document.documentElement.clientWidth
